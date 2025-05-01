@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard | Food Waste Saver</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+      min-height: 100vh;
+      padding: 30px;
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .card h3 {
+      color: #ff6f61;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .price {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .price del {
+      color: #999;
+      margin-right: 10px;
+    }
+
+    .order-btn {
+      margin-top: 15px;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .order-btn:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #0072ff, #00c6ff);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to Food Waste Saver 👋</h1>
+
+  <div class="grid" id="foodList">
+    <!-- Food cards will be loaded here -->
+  </div>
+
+  <script>
+    const foodItems = [
+      {
+        restaurant: "Spicy Bites",
+        item: "Paneer Butter Masala",
+        originalPrice: 220,
+        discountPrice: 110
+      },
+      {
+        restaurant: "Green Leaf",
+        item: "Veg Biryani",
+        originalPrice: 180,
+        discountPrice: 90
+      },
+      {
+        restaurant: "Tandoori Treats",
+        item: "Chicken Tikka",
+        originalPrice: 300,
+        discountPrice: 150
+      },
+      {
+        restaurant: "Pizza Planet",
+        item: "Margherita Pizza",
+        originalPrice: 250,
+        discountPrice: 125
+      }
+    ];
+
+    const foodList = document.getElementById("foodList");
+
+    foodItems.forEach(food => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <h3>${food.item}</h3>
+        <p><strong>Restaurant:</strong> ${food.restaurant}</p>
+        <p class="price">
+          <del>₹${food.originalPrice}</del> <span style="color:green;">₹${food.discountPrice}</span>
+        </p>
+        <button class="order-btn" onclick="orderNow('${food.item}')">Order Now</button>
+      `;
+      foodList.appendChild(card);
+    });
+
+    function orderNow(itemName) {
+      alert(`Thanks for ordering "${itemName}"! 🎉`);
+      // You can redirect or trigger Firebase DB logic here later
+    }
+  </script>
+
+</body>
+</html>
